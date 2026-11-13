@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shinaan's Locker</title>
+<style>
+  body{font-family:system-ui,sans-serif;max-width:800px;margin:2rem auto;padding:0 1rem;background:#0f1115;color:#e6e6e6}
+  a{color:#7cc4ff;cursor:pointer;display:block;margin:.4rem 0}
+  pre{background:#1a1d24;padding:1rem;border-radius:8px;overflow:auto}
+</style>
+</head>
+<body>
+<h1>Shinaan's Locker</h1>
+<div id="list"></div>
+<pre id="view">Pick a file.</pre>
+<script>
+  const files = ["program1", "program2", "program3"];
+  const list = document.getElementById("list");
+  const view = document.getElementById("view");
+  files.forEach(f => {
+    const a = document.createElement("a");
+    a.textContent = f;
+    a.onclick = async () => {
+      try { view.textContent = await (await fetch(f)).text(); }
+      catch (e) { view.textContent = "Could not load " + f; }
+    };
+    list.appendChild(a);
+  });
+</script>
+</body>
+</html>
